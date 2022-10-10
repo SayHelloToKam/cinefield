@@ -1,0 +1,7 @@
+.header-container {
+    height: var(--header-height);
+    background-color: var(--transparent-bg);
+    position:fixed;
+    top: 0;
+    width: 100%;
+}

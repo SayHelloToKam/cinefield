@@ -3,7 +3,9 @@ import '../styles/header.css'
 
 function Header() {
   return (
-    <div>Header</div>
+    <div className='header-container'>
+        Header
+    </div>
   )
 }
 
