@@ -1,4 +1,5 @@
 import React from 'react'
+import '../styles/movies.css'
 
 function MovieCard({movie,width,height,radius,cardStyle,imageUrl}) {
 
@@ -15,12 +16,12 @@ function MovieCard({movie,width,height,radius,cardStyle,imageUrl}) {
       }
 
   return (
-    <div className={cardStyle}>
+    <a href={`/moviedetails/${movie?.id}`} className={cardStyle}>
         <div style={imageStyle}>
             
         </div>
 
-    </div>
+    </a>
   )
 }
 

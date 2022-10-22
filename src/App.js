@@ -3,6 +3,10 @@ import './App.css';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import HomePage from './pages/HomePage';
+import About from './pages/About';
+import Contact from './pages/Contact';
+import MovieDetails from './pages/MovieDetails';
+import {BrowserRouter,Routes,Route} from 'react-router-dom'
 
 function App() {
 
@@ -10,13 +14,16 @@ function App() {
   const baseUrl ="https://api.themoviedb.org/3"
 
   return (
-    <div className="App">
+    <BrowserRouter>
       <Header />
-      <HomePage apiKey={apiKey} baseUrl={baseUrl}/>
+      <Routes>
+        <Route path='/' element={<HomePage apiKey={apiKey} baseUrl={baseUrl}/>}/>
+        <Route path='/aboutus' element={<About/>}/>
+        <Route path='/contactus' element={<Contact/>}/>
+        <Route path='/moviedetails/:movieid' element={<MovieDetails apiKey={apiKey} baseUrl={baseUrl}/>}/>
+      </Routes>
       <Footer />
-
-     
-    </div>
+    </BrowserRouter>
   );
 }
 

@@ -18,7 +18,7 @@ useEffect(() => {
 
   axios.get(`${baseUrl}/movie/top_rated?api_key=${apiKey}&language=en-US&page=1`)
   .then(res=>{
-    setTopRatedMovies(res.data.results)
+    setTopRatedMovies(res.data.results.slice(0,10))
   })
   .catch(err=>console.log(err))
 

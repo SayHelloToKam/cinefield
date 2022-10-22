@@ -18,7 +18,7 @@ const [index, setIndex]=useState(0)
         setCurrentRating(Math.round((res.data.results[index].vote_average)/2))
      })
      .catch(err=>console.log(err))
-    }, [index])
+    }, [])
 
 const sliderStyle = {
     height:"60vh",
