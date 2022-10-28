@@ -8,24 +8,30 @@ import '../styles/home.css'
 function HomePage({apiKey, baseUrl}) {
 const [popularMovies, setPopularMovies]=useState([])
 const [topRatedMovies, setTopRatedMovies]=useState([])
+const [page,setPage]=useState(10)
+const pageNumbers=[1,2,3,4,5,6,7,8,9,10]
 
 useEffect(() => {
-  axios.get(`${baseUrl}/movie/popular?api_key=${apiKey}&language=en-US&page=1`)
+  axios.get(`${baseUrl}/movie/popular?api_key=${apiKey}&language=en-US&page=${page}`)
   .then(res=>{
     setPopularMovies(res.data.results)
   })
   .catch(err=>console.log(err))
+}, [page])
 
+useEffect(() => {
   axios.get(`${baseUrl}/movie/top_rated?api_key=${apiKey}&language=en-US&page=1`)
   .then(res=>{
     setTopRatedMovies(res.data.results.slice(0,10))
   })
   .catch(err=>console.log(err))
-
 }, [])
 
 
-
+const handlePage = (page) => {
+  setPage(page)
+  console.log(page)
+}
 
   return (
     <div className='homepage-container'>
@@ -42,8 +48,17 @@ useEffect(() => {
             }
 
           </div>
-
+          <div className='page-numbers'>
+            <p>Select Page</p>
+            {
+              pageNumbers.map(item=>{
+                return <p onClick={()=>handlePage(item)}>{item}</p>
+              })
+            }
+            
+          </div>
         </div>
+
         <div className='top-rated-container'>
           <h3>Top Rated Movies</h3>
           <div className='top-rated-cards-wrapper'>

@@ -6,11 +6,12 @@ import axios from 'axios';
 
 function MovieDetails({baseUrl,apiKey}) {
 const {movieid} = useParams();
+const [movie,setMovie] = useState({})
 
 useEffect(() => {
   axios.get(`${baseUrl}/movie/${movieid}?api_key=${apiKey}&language=en-US`)
   .then(res=> {
-    console.log(res.data)
+    setMovie(res.data)
   })
   .catch(err=>console.log(err))
 }, [])
@@ -18,7 +19,7 @@ useEffect(() => {
 
   return (
     <div className="movie-details-container">
-        {movieid}
+        <p>{movie.title}</p>
     </div>
   )
 }

@@ -1,7 +1,9 @@
-import React from 'react'
+import React, {useState} from 'react'
 import '../styles/movies.css'
+import Rating from './Rating';
 
 function MovieCard({movie,width,height,radius,cardStyle,imageUrl}) {
+  const [rating,setRating]=useState(Math.round((movie?.vote_average)/2))
 
     const imageStyle={
         backgroundImage:`url("https://image.tmdb.org/t/p/w500/${imageUrl}")`, 
@@ -18,8 +20,21 @@ function MovieCard({movie,width,height,radius,cardStyle,imageUrl}) {
   return (
     <a href={`/moviedetails/${movie?.id}`} className={cardStyle}>
         <div style={imageStyle}>
-            
+            <div className='movie-info-top'>
+                <Rating currentRating={rating}/>
+            </div>
+            <div className='movie-info-bottom'>
+                <p>{movie?.title}</p>
+                <p>Rating:{rating}</p>
+            </div>
         </div>
+        {
+          cardStyle==='top-rated-card'
+          ? <div>
+            <p>{movie?.title}</p>
+            </div>
+          : null
+        }
 
     </a>
   )

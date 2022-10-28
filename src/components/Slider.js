@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import '../styles/slider.css'
+import Rating from './Rating';
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
-import StarRatings from 'react-star-ratings'
+
 
 
 function Slider({apiKey, baseUrl}) {
@@ -55,12 +56,7 @@ const handleLeft=()=>{
             <h1>{upcomingMovies[index]?.title}</h1>
             <p>{upcomingMovies[index]?.overview.slice(0,225)}...</p>
             <p>Release Date: {upcomingMovies[index]?.release_date}</p>
-            <StarRatings
-                rating={currentRating}
-                starRatedColor={'red'}
-                starDimension={'20px'}
-                starSpacing={'1px'}
-            />
+            <Rating currentRating={currentRating}/>
             <a className='see-details'>See Details</a>
         </div>
     </div>

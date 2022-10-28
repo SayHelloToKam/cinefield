@@ -10,8 +10,8 @@ import {BrowserRouter,Routes,Route} from 'react-router-dom'
 
 function App() {
 
-  const apiKey="3f610188b35cc35e6b698811da73891a";
-  const baseUrl ="https://api.themoviedb.org/3"
+  const apiKey=process.env.REACT_APP_APY_KEY;
+  const baseUrl=process.env.REACT_APP_BASE_URL;
 
   return (
     <BrowserRouter>
