@@ -8,6 +8,7 @@ import Contact from './pages/Contact';
 import MovieDetails from './pages/MovieDetails';
 import {BrowserRouter,Routes,Route} from 'react-router-dom'
 
+
 function App() {
 
   const apiKey=process.env.REACT_APP_APY_KEY;
