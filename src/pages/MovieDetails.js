@@ -23,7 +23,7 @@ const [movieGenres,setMovieGenres]=useState([])
 useEffect(() => {
   axios.get(`${baseUrl}/movie/${movieid}?api_key=${apiKey}&language=en-US`)
   .then(res=> {
-    console.log(res.data.genres)
+    // console.log(res.data.genres)
     setMovieGenres(res.data.genres)
     setMovie(res.data)
     setCurrentRating((res.data.vote_average)/2)
@@ -52,6 +52,11 @@ useEffect(() => {
               <ReactPlayer className='trailer-player' url={`https://www.youtube.com/watch?v=${videoLink}`}
               width= '100%'
               height= '100%'
+              config={{
+                youtube: {
+                  playersVars: { showinfo: 1,origin: "http://localhost:3000"}
+                }
+              }}
               />
           </div>
           <div className='details-container'>
@@ -67,13 +72,13 @@ useEffect(() => {
                   <h4>Status: <span>{movie.status}</span></h4>
                   <h4>Runtime: <span>{movie.runtime}</span></h4>
                   <h4>Budget: <span>{movie.budget}</span></h4>
-                 <Genres movieGenres={movieGenres}/>
+                 <Genres component='details' movieGenres={movieGenres} apiKey={apiKey} baseUrl={baseUrl}/>
                 </div>
               </div>
               <div className='review-container'>
                   {
                     reviews.slice(0,reviewNumber).map(item=>{
-                      return <Review review={item}/>
+                      return <Review key={item.id} review={item}/>
                     })
                   }
 

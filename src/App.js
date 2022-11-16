@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import Footer from './components/Footer';
 import Header from './components/Header';
@@ -7,6 +7,8 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import MovieDetails from './pages/MovieDetails';
 import {BrowserRouter,Routes,Route} from 'react-router-dom'
+// import ThemeContextProvider from './contexts/ThemeContext';
+import { ThemeContext } from './contexts/ThemeContext';
 
 
 function App() {
@@ -14,17 +16,25 @@ function App() {
   const apiKey=process.env.REACT_APP_APY_KEY;
   const baseUrl=process.env.REACT_APP_BASE_URL;
 
+  const [darkMode,setDarkMode]=useState(true)
+
   return (
-    <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route path='/' element={<HomePage apiKey={apiKey} baseUrl={baseUrl}/>}/>
-        <Route path='/aboutus' element={<About/>}/>
-        <Route path='/contactus' element={<Contact/>}/>
-        <Route path='/moviedetails/:movieid' element={<MovieDetails apiKey={apiKey} baseUrl={baseUrl}/>}/>
-      </Routes>
-      <Footer />
-    </BrowserRouter>
+    
+      <BrowserRouter>
+        <ThemeContext.Provider value={{darkMode,setDarkMode}}>
+          <Header apiKey={apiKey} baseUrl={baseUrl}/>
+          <Routes>
+            <Route path='/' element={<HomePage apiKey={apiKey} baseUrl={baseUrl}/>}/>
+            <Route path='/aboutus' element={<About/>}/>
+            <Route path='/contactus' element={<Contact/>}/>
+            <Route path='/moviedetails/:movieid' element={<MovieDetails apiKey={apiKey} baseUrl={baseUrl}/>}/>
+          </Routes>
+          <Footer />
+        </ThemeContext.Provider>
+      </BrowserRouter>
+
+    
+    
   );
 }
 

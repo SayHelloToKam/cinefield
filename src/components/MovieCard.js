@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import '../styles/movies.css'
 import Rating from './Rating';
+import {Link} from 'react-router-dom'
 
 function MovieCard({movie,width,height,radius,cardStyle,imageUrl}) {
   const [rating,setRating]=useState(Math.round((movie?.vote_average)/2))
@@ -18,7 +19,7 @@ function MovieCard({movie,width,height,radius,cardStyle,imageUrl}) {
       }
 
   return (
-    <a href={`/moviedetails/${movie?.id}`} className={cardStyle}>
+    <Link to={`/moviedetails/${movie?.id}`} className={cardStyle}>
         <div style={imageStyle}>
             <div className='movie-info-top'>
                 <Rating currentRating={rating}/>
@@ -36,7 +37,7 @@ function MovieCard({movie,width,height,radius,cardStyle,imageUrl}) {
           : null
         }
 
-    </a>
+    </Link>
   )
 }
 

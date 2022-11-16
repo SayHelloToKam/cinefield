@@ -3,6 +3,7 @@ import axios from 'axios'
 import '../styles/slider.css'
 import Rating from './Rating';
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
+import Genres from '../components/Genres'
 
 
 
@@ -15,6 +16,7 @@ const [index, setIndex]=useState(0)
     useEffect(() => {
      axios.get(`${baseUrl}/movie/upcoming?api_key=${apiKey}`)
      .then(res=>{
+        // console.log(res.data.results)
         setUpcomingMovies(res.data.results)
         setCurrentRating(Math.round((res.data.results[index].vote_average)/2))
      })
@@ -56,8 +58,9 @@ const handleLeft=()=>{
             <h1>{upcomingMovies[index]?.title}</h1>
             <p>{upcomingMovies[index]?.overview.slice(0,225)}...</p>
             <p>Release Date: {upcomingMovies[index]?.release_date}</p>
-            <Rating currentRating={currentRating}/>
-            <a className='see-details'>See Details</a>
+            <Genres component='slider' movieGenres={upcomingMovies[index]?.genre_ids} baseUrl={baseUrl} apiKey={apiKey}/> 
+            <Rating currentRating={currentRating} />
+            <a href={`/moviedetails/${upcomingMovies[index]?.id}`} className='see-details'>See Details</a>
         </div>
     </div>
   )
