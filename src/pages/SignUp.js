@@ -3,7 +3,7 @@ import '../styles/user.css'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
 
-function SignUp() {
+function SignUp({serverUrl}) {
 
 const [myEmail,setMyEmail]=useState('')
 const [password,setPassword]=useState('')
@@ -12,7 +12,7 @@ const [success,setSuccess]=useState(false)
 
 const handleSignup=(e)=>{
     e.preventDefault();
-    axios.post(`https://cinetrail-server.herokuapp.com/users/signup`, {
+    axios.post(`${serverUrl}/users/signup`, {
         email:myEmail,
         password,
         username

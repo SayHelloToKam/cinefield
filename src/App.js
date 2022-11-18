@@ -7,34 +7,37 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import MovieDetails from './pages/MovieDetails';
 import {BrowserRouter,Routes,Route} from 'react-router-dom'
-// import ThemeContextProvider from './contexts/ThemeContext';
-import { ThemeContext } from './contexts/ThemeContext';
+import ContextReducer from './contexts';
+// import { ThemeContext } from './contexts/ThemeContext';
 import SignUp from './pages/SignUp';
 import SignIn from './pages/SignIn';
+import MyFavorites from './pages/MyFavorites';
 
 
 function App() {
 
   const apiKey=process.env.REACT_APP_APY_KEY;
   const baseUrl=process.env.REACT_APP_BASE_URL;
+  const serverUrl=process.env.REACT_APP_SERVER_URL;
 
-  const [darkMode,setDarkMode]=useState(true)
+
 
   return (
     
       <BrowserRouter>
-        <ThemeContext.Provider value={{darkMode,setDarkMode}}>
-          <Header apiKey={apiKey} baseUrl={baseUrl}/>
-          <Routes>
-            <Route path='/' element={<HomePage apiKey={apiKey} baseUrl={baseUrl}/>}/>
-            <Route path='/aboutus' element={<About/>}/>
-            <Route path='/contactus' element={<Contact/>}/>
-            <Route path='/signup' element={<SignUp/>} />
-            <Route path='/signin' element={<SignIn/>} />
-            <Route path='/moviedetails/:movieid' element={<MovieDetails apiKey={apiKey} baseUrl={baseUrl}/>}/>
-          </Routes>
-          <Footer />
-        </ThemeContext.Provider>
+        <ContextReducer>
+              <Header apiKey={apiKey} baseUrl={baseUrl}/>
+              <Routes>
+                <Route path='/' element={<HomePage apiKey={apiKey} baseUrl={baseUrl}/>}/>
+                <Route path='/aboutus' element={<About/>}/>
+                <Route path='/contactus' element={<Contact/>}/>
+                <Route path='/signup' element={<SignUp serverUrl={serverUrl} />} />
+                <Route path='/signin' element={<SignIn serverUrl={serverUrl} />} />
+                <Route path='/myfavorites' element={<MyFavorites />} />
+                <Route path='/moviedetails/:movieid' element={<MovieDetails apiKey={apiKey} baseUrl={baseUrl}/>}/>
+              </Routes>
+              <Footer />
+        </ContextReducer>
       </BrowserRouter>
 
     
