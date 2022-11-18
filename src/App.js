@@ -9,6 +9,8 @@ import MovieDetails from './pages/MovieDetails';
 import {BrowserRouter,Routes,Route} from 'react-router-dom'
 // import ThemeContextProvider from './contexts/ThemeContext';
 import { ThemeContext } from './contexts/ThemeContext';
+import SignUp from './pages/SignUp';
+import SignIn from './pages/SignIn';
 
 
 function App() {
@@ -27,6 +29,8 @@ function App() {
             <Route path='/' element={<HomePage apiKey={apiKey} baseUrl={baseUrl}/>}/>
             <Route path='/aboutus' element={<About/>}/>
             <Route path='/contactus' element={<Contact/>}/>
+            <Route path='/signup' element={<SignUp/>} />
+            <Route path='/signin' element={<SignIn/>} />
             <Route path='/moviedetails/:movieid' element={<MovieDetails apiKey={apiKey} baseUrl={baseUrl}/>}/>
           </Routes>
           <Footer />

@@ -3,15 +3,16 @@ import '../styles/header.css'
 import axios from 'axios';
 import SearchResults from './SearchResults'
 import {ThemeContext} from '../contexts/ThemeContext'
-import {Link} from 'react-router-dom'
+import {useNavigate,Link} from 'react-router-dom'
 
 function Header({baseUrl,apiKey}) {
   const [query,setQuery]=useState('')
   const [searchResults,setSearchResults]=useState([])
   const {darkMode,setDarkMode}=useContext(ThemeContext)
+  const navigate=useNavigate();
 
   const handleSearch=(e)=>{
-      console.log(e.target.value)
+      setQuery(e.target.value)
       axios.get(`${baseUrl}/search/movie?api_key=${apiKey}&query=${query}`)
             .then(res=>{
             setSearchResults(res.data.results)
@@ -39,6 +40,9 @@ function Header({baseUrl,apiKey}) {
               </div>
               : null
             }
+          </div>
+          <div>
+            <button className='create-account' onClick={()=>navigate('/signup')}>Create an Account</button>
           </div>
     </div>
   )
