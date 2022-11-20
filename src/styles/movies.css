@@ -79,6 +79,25 @@
     top: 0;
     left: 0; 
 }
+.title-container {
+    display:flex;
+    align-items: center;
+    justify-content: space-between
+}
+.remove-btn,.add-btn {
+    background-color:transparent;
+    padding: 8px 16px;
+    border-radius: 12px;
+    cursor: pointer;
+}
+.remove-btn {
+    border: solid 1px green;
+    color: green;
+}
+.add-btn {
+    border: solid 1px red;
+    color: red;
+}
 .details-container{
     color:var(--white);
     margin-top:40px;

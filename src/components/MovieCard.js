@@ -19,7 +19,7 @@ function MovieCard({movie,width,height,radius,cardStyle,imageUrl}) {
       }
 
   return (
-    <Link to={`/moviedetails/${movie?.id}`} className={cardStyle}>
+    <Link to={movie._id ? `/moviedetails/${movie?.tmdb_id}` : `/moviedetails/${movie?.id}`} className={cardStyle}>
         <div style={imageStyle}>
             <div className='movie-info-top'>
                 <Rating currentRating={rating}/>

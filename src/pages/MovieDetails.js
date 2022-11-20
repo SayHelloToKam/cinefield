@@ -1,4 +1,4 @@
-import React, {useEffect,useState} from 'react'
+import React, {useEffect,useState,useContext} from 'react'
 import '../styles/movies.css'
 import {useParams} from 'react-router-dom';
 import ReactPlayer from 'react-player/youtube'
@@ -6,10 +6,11 @@ import Rating from '../components/Rating'
 import Review from '../components/Review'
 import Genres from '../components/Genres'
 import axios from 'axios';
+import { UserContext } from '../contexts/UserContext'
 
 
 
-function MovieDetails({baseUrl,apiKey}) {
+function MovieDetails({baseUrl,apiKey,serverUrl}) {
 const {movieid} = useParams();
 const [movie,setMovie] = useState({})
 const [videoLink,setVideoLink]=useState('')
@@ -18,6 +19,27 @@ const [reviews,setReviews]=useState([])
 const [reviewNumber,setReviewNumber]=useState(3)
 const [totalReviews,setTotalReviews]=useState('')
 const [movieGenres,setMovieGenres]=useState([])
+const [added,setAdded]=useState(false)
+const {user,setUser,token}=useContext(UserContext)
+
+useEffect(() => {
+  axios.post(`${serverUrl}/favoriteMovies/search`,{
+    user_id:user?._id,
+    tmdb_id:movie?.id
+  })
+  .then(res=>{
+    console.log(res.data)
+    if(res.data === null) {
+      setAdded(false)
+    } else {
+      setAdded(true)
+    }
+  })
+  .catch(err=>console.log(err))
+}, [user,movie])
+
+
+
 
 
 useEffect(() => {
@@ -45,6 +67,32 @@ useEffect(() => {
   .catch(err=>console.log(err))
 }, [])
 
+const addToFavorites=()=>{
+  if(!token){
+    alert('Please login to save movies.')
+  } else {
+    axios.post(`${serverUrl}/favoriteMovies`,{
+      movie_id:movie?.id,
+      user_id:user._id
+    })
+    .then(res=>{
+      setAdded(true)
+    })
+    .catch(err=>console.log(err))
+  }
+}
+
+const removeFromFavorites = () => {
+  axios.delete(`${serverUrl}/favoriteMovies/${user._id}/${movie.id}`)
+  .then(res=>{
+    setAdded(false)
+  })
+  .catch(err=>console.log(err))
+}
+
+
+
+
 
   return (
     <div className="movie-details-container">
@@ -62,6 +110,11 @@ useEffect(() => {
           <div className='details-container'>
               <div className='title-container'>
                   <h1>{movie.title}</h1>
+                  {
+                    added
+                    ? <button onClick={removeFromFavorites} className='remove-btn'>Remove from Favorites</button>
+                    : <button onClick={addToFavorites} className='add-btn'>Add to Favorites</button>
+                  }
               </div>
               <Rating currentRating={currentRating} />
               <div className='info-container'>
